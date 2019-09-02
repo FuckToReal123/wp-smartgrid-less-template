@@ -69,6 +69,14 @@ module.exports = {
                 }
             },
             {
+                test: /\.(eot|ttf|woff|woff2)$/,
+                loader: 'file-loader',
+                options: {
+                    name: '[path][name].[ext]',
+                    outputPath: 'assets/'
+                }
+            },
+            {
                 test: /\.html$/,
                 loader: 'html-loader',
                 options: {
