@@ -1,15 +1,16 @@
 'use strict';
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const autoprefixer = require('autoprefixer');
+const path = require('path');
 
 module.exports = {
     mode: 'production',
+    context: path.resolve(__dirname),
     entry: './index.js',
     output: {
-        filename: 'script.js',
-        publicPath: 'dist/assets',
-        path: __dirname + '/dist'
+        path: path.resolve(__dirname + '/dist'),
     },
     externals: ["fs"],
     module: {
@@ -17,6 +18,12 @@ module.exports = {
             {
                 test: /\.less$/,
                 use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            reloadAll: true,
+                        }
+                    },
                     {
                         loader: 'css-loader',
                         options: {
@@ -57,7 +64,16 @@ module.exports = {
                 test: /\.(jpg|png|gif|svg)$/,
                 loader: 'file-loader',
                 options: {
-                    name: 'images/[name].[ext]'
+                    name: '[name].[ext]',
+                    outputPath: 'assets/images/'
+                }
+            },
+            {
+                test: /\.html$/,
+                loader: 'html-loader',
+                options: {
+                    removeComments: true,
+                    minimize: false
                 }
             }
         ]
@@ -70,6 +86,13 @@ module.exports = {
         progress: true
     },
     plugins: [
-        new HtmlWebpackPlugin({template: './dist/index.html'})
+        new HtmlWebpackPlugin({
+            template: './src/index.html',
+            hash: true,
+            minify: false
+        }),
+        new MiniCssExtractPlugin({
+            filename: 'style.css'
+        })
     ]
 };
