@@ -3,7 +3,7 @@ const grid = require('smart-grid');
 const gridSettings = {
     outputStyle: 'less',
     columns: 12,
-    offset: '30px',
+    offset: '25px',
     mobileFirst: false,
     container: {
         maxWidth: '1200px',

@@ -1,8 +1,11 @@
 'use strict';
 
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const autoprefixer = require('autoprefixer');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const MediaQueryPlugin = require('media-query-plugin');
 const path = require('path');
 
 module.exports = {
@@ -11,6 +14,7 @@ module.exports = {
     entry: './index.js',
     output: {
         path: path.resolve(__dirname + '/dist'),
+        filename: 'script.min.js'
     },
     externals: ["fs"],
     module: {
@@ -27,17 +31,26 @@ module.exports = {
                     {
                         loader: 'css-loader',
                         options: {
-                            sourceMap: true
+                            sourceMap: true,
                         }
 
+                    },
+                    {
+                        loader: 'group-css-media-queries-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    },
+                    {
+                        loader: MediaQueryPlugin.loader,
                     },
                     {
                         loader: 'postcss-loader',
                         options: {
                             plugins: [
                                 autoprefixer({
-                                    overrideBrowserslist: ['last 10 versions']
-                                })
+                                    overrideBrowserslist: ['last 2 versions']
+                                }),
                             ],
                             sourceMap: true
                         }
@@ -56,6 +69,7 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
+                        filename: 'assets/js/script.js',
                         presets: ['@babel/preset-env']
                     }
                 }
@@ -72,8 +86,8 @@ module.exports = {
                 test: /\.(eot|ttf|woff|woff2)$/,
                 loader: 'file-loader',
                 options: {
-                    name: '[path][name].[ext]',
-                    outputPath: 'assets/'
+                    name: '[folder]/[name].[ext]',
+                    outputPath: 'assets/fonts/',
                 }
             },
             {
@@ -91,7 +105,8 @@ module.exports = {
         compress: true,
         port: 8107,
         watchContentBase: true,
-        progress: true
+        progress: true,
+        overlay: true
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -100,7 +115,20 @@ module.exports = {
             minify: false
         }),
         new MiniCssExtractPlugin({
-            filename: 'style.css'
-        })
+            filename: 'style.min.css'
+        }),
+        new OptimizeCssAssetsPlugin({
+            presets: [
+                'default',
+                {
+                    discardComments: {removeAll: true}
+                }
+            ]
+        }),
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery',
+            'window.jQuery': 'jquery'
+        }),
     ]
 };

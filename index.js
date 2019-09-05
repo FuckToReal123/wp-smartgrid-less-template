@@ -1,3 +1,4 @@
-require.context('./src/less/', true, /\.less$/);
-require.context('./src/js/', true, /\.js$/);
-require.context('./src/images/', true, /\.(jpg|png|gif|svg)$/);
+'use strict';
+
+require('./src/less/style.less');
+require('./src/js/script');

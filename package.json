@@ -9,7 +9,7 @@
     "watch": "webpack --watch",
     "start": "webpack-dev-server"
   },
-  "author": "",
+  "author": "Шуморкин Илья",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.5.5",
@@ -19,6 +19,8 @@
     "css-loader": "^3.2.0",
     "file-loader": "^4.2.0",
     "fs": "0.0.1-security",
+    "group-css-media-queries": "^1.4.1",
+    "group-css-media-queries-loader": "^3.0.2",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "inputmask": "^4.0.8",
@@ -26,12 +28,17 @@
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
     "magnific-popup": "^1.1.0",
+    "media-query-plugin": "^1.3.1",
     "mini-css-extract-plugin": "^0.8.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-loader": "^3.0.0",
+    "postcss-move-media": "^1.0.0-pre",
+    "slick-carousel": "^1.8.1",
     "smart-grid": "^2.1.2",
     "style-loader": "^1.0.0",
     "swiper": "^4.5.0",
     "webpack": "^4.39.3",
     "webpack-dev-server": "^3.8.0"
-  }
+  },
+  "repository": "https://github.com/FuckToReal123/wp-smartgrid-less-template.git"
 }
